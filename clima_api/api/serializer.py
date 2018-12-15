@@ -1,9 +1,9 @@
 
 from rest_framework import serializers
-from .models import CityWether
+from .models import CityWeather
 
 class CitySerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = CityWether
+        model = CityWeather
         fields = "__all__"
