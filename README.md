@@ -1,5 +1,5 @@
 API utilizada: https://openweathermap.org/api
-Intuito da API criada:
+<br>Intuito da API criada:
 <br>    Filtrar as informações relevantes consumidas da API relevantes para a aplicação
     
 Informação relevante:
