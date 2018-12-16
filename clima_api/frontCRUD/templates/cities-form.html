@@ -9,17 +9,12 @@
   </head>
   <body>
 
-      <h1>New/Update city</h1>
+      <h1>Nova Cidade</h1>
 
       <form method="POST">
           {% csrf_token %}
           {{ form }}
-          <button type="submit">Save</button>
+          <button type="submit">Procurar</button>
       </form>
-
-
-      {% if city %}
-          <a href="{% url 'Delete_City' city.id %}">Delete</a>
-      {% endif %}
   </body>
 </html>

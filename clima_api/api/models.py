@@ -1,4 +1,5 @@
 from django.db import models
+
 from model_utils.models import TimeStampedModel
 class CityWeather(TimeStampedModel):
     name = models.CharField(max_length=25, verbose_name='Name')
@@ -9,6 +10,6 @@ class CityWeather(TimeStampedModel):
         return str(self.name)
 
     class Meta:
-        verbose_name = 'City Weather'
-        verbose_name_plural = 'Cities Weather'
+        verbose_name = 'City'
+        verbose_name_plural = 'Cities'
         ordering = ['-created']

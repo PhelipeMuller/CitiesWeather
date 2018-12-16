@@ -1,38 +1,50 @@
 from django.shortcuts import render, redirect
 from .models import City
 from .forms import CityForm
+import requests
 
 # Create your views here.
 
 def list_cities(request):
-    cities = City.objects.all()
+    url = "http://127.0.0.1:8000/v1/cities"
+    payload = ""
+    headers = {
+        'cache-control': "no-cache"
+    }
+    response = requests.request("GET", url, data=payload, headers=headers)
+    cities = []
+    for r in response.json():
+        cities.append(Struct(**r))
     return render(request, 'cities.html', {'cities': cities})
 
 def search_city(request):
     form = CityForm(request.POST or None)
 
+
     if form.is_valid():
-        form.save()
+        url = "http://127.0.0.1:8000/v1/city/{0}".format(form.cleaned_data['name'])
+
+        payload = ""
+        headers = {
+            'cache-control': "no-cache"
+            }
+
+        response = requests.request("GET", url, data=payload, headers=headers)
         return redirect('List_of_Cities')
 
     return render(request, 'cities-form.html', {'form': form})
 
-def update_city(request, id):
-    city = City.objects.get(id=id)
-    form = CityForm(request.POST or None, instance=city)
+def delete_city(request, name):
+    url = "http://127.0.0.1:8000/v1/city/{0}".format(name)
 
-    if form.is_valid():
-        form.save()
-        return redirect('List_of_Cities')
+    payload = ""
+    headers = {
+        'cache-control': "no-cache"
+    }
 
-    return render(request, 'cities-form.html', {'form': form, 'city': city})
+    response = requests.request("DELETE", url, data=payload, headers=headers)
+    return redirect('List_of_Cities')
 
-
-def delete_city(request, id):
-    city = City.objects.get(id=id)
-
-    if request.method == 'POST':
-        city.delete()
-        return redirect('List_of_Cities')
-
-    return render(request, 'delete_city.html', {'city': city})
+class Struct:
+    def __init__(self, **entries):
+        self.__dict__.update(entries)

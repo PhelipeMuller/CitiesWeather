@@ -10,12 +10,10 @@
   <body>
       <ul>
           {% for city in cities %}
-              <a href="{% url 'Update_City' city.id %}">
-                  <li> {{ city.name }}</li>
-              </a>
+                  <li> {{ city.name }} <a href="{% url 'Delete_City' city.name %}">Deletar</a> <br> {{city.time_rain }} Horas de Chuva <br> {{city.celcius}} Graus</li>
           {% endfor %}
       </ul>
 
-      <a href="{% url 'Search_City' %}">New City</a>
+      <a href="{% url 'Search_City' %}">Nova Cidade</a>
   </body>
 </html>
